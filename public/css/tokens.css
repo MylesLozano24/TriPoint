@@ -1,0 +1,59 @@
+/* ==========================================================================
+   TriPoint Innovations — Design Tokens
+   Palette, type, and spacing primitives shared across every page.
+   ========================================================================== */
+
+:root {
+  /* Color palette (from brand brief) */
+  --tp-off-white: #F5F3EE;
+  --tp-light-gray: #E7E7E4;
+  --tp-dark-gray: #252525;
+  --tp-medium-gray: #686868;
+  --tp-orange: #F26A21;
+  --tp-orange-dim: #C4551A;
+  --tp-white: #FFFFFF;
+
+  /* Semantic aliases */
+  --bg-primary: var(--tp-off-white);
+  --bg-secondary: var(--tp-light-gray);
+  --bg-dark: var(--tp-dark-gray);
+  --text-primary: var(--tp-dark-gray);
+  --text-secondary: var(--tp-medium-gray);
+  --text-on-dark: var(--tp-off-white);
+  --accent: var(--tp-orange);
+
+  /* Type: Space Grotesk for headings (technical, geometric — reads like
+     something drawn with a straightedge), Inter for body copy (readable
+     at length), and a monospace face for data/diagnostic readouts —
+     RSSI, SNR, coordinates, timestamps — the actual language of a radio
+     product, used as a deliberate texture rather than a default choice. */
+  --font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+
+  /* Layout */
+  --content-width: 1180px;
+  --content-padding: clamp(1.25rem, 4vw, 3rem);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* The brand is defined against an off-white ground; we keep it
+     consistent rather than auto-inverting, but respect reduced motion
+     and focus visibility regardless of scheme. */
+}

@@ -1,0 +1,16 @@
+name = "tripoint-innovations"
+main = "worker/index.js"
+compatibility_date = "2026-07-01"
+
+# Static site + beta app are served straight from /public.
+# Cloudflare's asset handler serves matching files automatically;
+# the Worker only runs for routes that need logic (currently: the
+# contact form endpoint, and a catch-all 404).
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "404-page"
+
+# Custom domain routing is configured in the Cloudflare dashboard
+# under Workers & Pages -> tripoint-innovations -> Triggers -> Custom Domains.
+# Add: tripoint-innovations.com and www.tripoint-innovations.com

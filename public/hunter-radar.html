@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter Radar — TriPoint Innovations</title>
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" href="/images/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<meta name="description" content="Hunter Radar is an off-grid outdoor safety and location-awareness system for hunters, landowners, hikers, guides, and outdoor groups.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="nav__logo" href="/">
+      <img class="nav__logo-mark" src="/images/logo-mark-256.png" alt="TriPoint Innovations mark" width="26" height="24">
+      TriPoint Innovations
+    </a>
+    <ul class="nav__links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/hunter-radar.html" aria-current="page">Hunter Radar</a></li>
+      <li><a href="/progress.html">Progress</a></li>
+      <li><a href="/team.html">Team</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a class="btn btn--secondary" href="/beta/">Join the Beta</a>
+      <a class="btn btn--primary" href="/contact.html">Contact TriPoint</a>
+    </div>
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" style="padding-top: var(--space-2xl); padding-bottom: var(--space-lg);">
+    <div class="container">
+      <div class="reveal" style="max-width:760px;">
+        <span class="eyebrow">Flagship product</span>
+        <h1>Location awareness where cellular service ends.</h1>
+        <p class="lead">Hunter Radar is an off-grid outdoor safety and communication system being developed for hunters, landowners, hikers, guides, and outdoor groups.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/beta/">Join the Beta</a>
+          <a class="btn btn--secondary" href="#how-it-works">How it works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section--tight">
+    <div class="container">
+      <div class="grid grid--2 reveal" style="gap: var(--space-2xl);">
+        <div>
+          <span class="eyebrow">The problem</span>
+          <h2>Groups lose track of each other fast.</h2>
+        </div>
+        <div>
+          <p>Cellular service is unreliable in rural and wilderness areas, so phone-based location sharing stops working the moment it's needed most. Traditional radios provide voice but no location. Satellite communicators work well but are often expensive and subscription-based. Meanwhile, group members spread out over large properties with no way to see where anyone else actually is.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="reveal" style="max-width:680px; margin-bottom: var(--space-lg);">
+        <span class="eyebrow">The solution</span>
+        <h2>A dedicated radio network between your group.</h2>
+        <p>Hunter Radar combines portable hardware with a digital map interface to help group members maintain awareness of one another while operating across large or remote properties — without requiring users to depend entirely on cell towers.</p>
+      </div>
+      <ul class="feature-list reveal">
+        <li>Group location sharing</li>
+        <li>Offline communication</li>
+        <li>Last-known location tracking</li>
+        <li>Short status updates</li>
+        <li>Emergency alerts</li>
+        <li>Property boundaries</li>
+        <li>Shared waypoints</li>
+        <li>Offline map access</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="reveal" style="max-width:640px; margin-bottom: var(--space-xl);">
+        <span class="eyebrow">How it works</span>
+        <h2>Connect. Communicate. View.</h2>
+      </div>
+      <div class="flow reveal">
+        <div class="flow__step">
+          <span class="flow__index">01 — Connect</span>
+          <h3>Connect</h3>
+          <p>Each user carries a Hunter Radar device connected to the local interface.</p>
+        </div>
+        <div class="flow__step">
+          <span class="flow__index">02 — Communicate</span>
+          <h3>Communicate</h3>
+          <p>Hunter Radar devices exchange compact information through long-range radio communication.</p>
+        </div>
+        <div class="flow__step">
+          <span class="flow__index">03 — View</span>
+          <h3>View</h3>
+          <p>Received locations, statuses, and alerts are displayed through the Hunter Radar map interface.</p>
+        </div>
+      </div>
+      <p class="tag" style="margin-top: var(--space-lg); font-size:0.8rem; display:inline-block;">User Device → LoRa Network → Hunter Radar Device → Map Interface</p>
+    </div>
+  </section>
+
+  <!-- Current prototype -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="grid grid--2 reveal" style="gap: var(--space-2xl); align-items:start;">
+        <div>
+          <span class="eyebrow">Current prototype</span>
+          <h2>Where development stands today.</h2>
+          <p>The current prototype uses long-range LoRa radio communication, embedded electronics, and a developing beta interface. The hardware initializes an RFM95 LoRa radio operating at 915 MHz, receives packets from other units, and reports signal strength (RSSI) and signal-to-noise ratio (SNR) — the foundation the rest of the system is being built on.</p>
+        </div>
+        <div class="card" style="background:#2E2E2E; border-color:rgba(245,243,238,0.12);">
+          <h3 style="color:var(--text-on-dark);">Planned next</h3>
+          <ul class="feature-list" style="grid-template-columns:1fr;">
+            <li style="color:var(--text-on-dark);">Bluetooth bridge to phone / beta app</li>
+            <li style="color:var(--text-on-dark);">GPS positioning</li>
+            <li style="color:var(--text-on-dark);">Structured location &amp; message packets</li>
+            <li style="color:var(--text-on-dark);">Emergency SOS alerts</li>
+            <li style="color:var(--text-on-dark);">Device battery reporting</li>
+            <li style="color:var(--text-on-dark);">Group management</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beta CTA -->
+  <section class="section" style="text-align:center;">
+    <div class="container">
+      <div class="reveal" style="max-width:620px; margin:0 auto;">
+        <span class="eyebrow" style="justify-content:center; display:flex;">Beta testing</span>
+        <h2>Try the beta test interface.</h2>
+        <p>The beta website connects to prototype hardware over Bluetooth or USB, displays live and simulated location data on a map, and records diagnostic information for the development team. It's a testing tool first — built for visibility into raw data, not simplicity.</p>
+        <a class="btn btn--primary" href="/beta/">Launch the Beta App</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="nav__logo" href="/">
+          <span class="logo-chip"><img class="nav__logo-mark" src="/images/logo-mark-256.png" alt="TriPoint Innovations mark" width="22" height="20"></span>
+          TriPoint Innovations
+        </a>
+        <p>TriPoint Innovations develops practical safety and connectivity technology for the places traditional networks cannot reach.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Site</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/hunter-radar.html">Hunter Radar</a></li>
+            <li><a href="/progress.html">Progress</a></li>
+            <li><a href="/team.html">Team</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="/contact.html">Contact TriPoint</a></li>
+            <li><a href="/beta/">Join the Beta</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 TriPoint Innovations LLC. All rights reserved.</span>
+      <span><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms of Use</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

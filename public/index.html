@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TriPoint Innovations — Engineering connection beyond the limits of service</title>
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" href="/images/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<meta name="description" content="TriPoint Innovations develops practical hardware and software systems for safety, communication, and situational awareness in remote environments. Flagship product: Hunter Radar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="nav__logo" href="/">
+      <img class="nav__logo-mark" src="/images/logo-mark-256.png" alt="TriPoint Innovations mark" width="26" height="24">
+      TriPoint Innovations
+    </a>
+    <ul class="nav__links">
+      <li><a href="/" aria-current="page">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/hunter-radar.html">Hunter Radar</a></li>
+      <li><a href="/progress.html">Progress</a></li>
+      <li><a href="/team.html">Team</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a class="btn btn--secondary" href="/beta/">Join the Beta</a>
+      <a class="btn btn--primary" href="/contact.html">Contact TriPoint</a>
+    </div>
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy reveal">
+        <span class="eyebrow">Stillwater, Oklahoma · Est. 2025</span>
+        <h1>Engineering connection beyond the limits of service.</h1>
+        <p class="lead">TriPoint Innovations develops practical hardware and software systems designed to improve safety, communication, and situational awareness in remote environments.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/hunter-radar.html">Explore Hunter Radar</a>
+          <a class="btn btn--secondary" href="/about.html">Our Story</a>
+        </div>
+      </div>
+      <div class="hero__signal reveal" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <!-- faint topo contour lines -->
+          <path class="topo-line" d="M20,120 Q120,60 220,110 T380,90"/>
+          <path class="topo-line" d="M10,180 Q130,130 240,175 T390,150"/>
+          <path class="topo-line" d="M0,250 Q140,190 260,240 T400,215"/>
+          <path class="topo-line" d="M30,320 Q150,270 270,310 T400,290"/>
+          <!-- radar rings -->
+          <circle class="radar-ring" cx="200" cy="200" r="60"/>
+          <circle class="radar-ring" cx="200" cy="200" r="110"/>
+          <circle class="radar-ring" cx="200" cy="200" r="160"/>
+          <!-- sweep -->
+          <g class="radar-sweep-group">
+            <defs>
+              <linearGradient id="sweepFade" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#F26A21" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#F26A21" stop-opacity="0.35"/>
+              </linearGradient>
+            </defs>
+            <path d="M200,200 L200,40 A160,160 0 0,1 340,200 Z" fill="url(#sweepFade)"/>
+          </g>
+          <!-- nodes representing devices -->
+          <circle class="radar-node" cx="200" cy="200" r="5"/>
+          <circle class="radar-node" cx="260" cy="140" r="4"/>
+          <circle class="radar-node" cx="140" cy="255" r="4"/>
+          <circle class="radar-node radar-node--ping" cx="260" cy="140" r="4"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company introduction -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2" style="align-items:start; gap: var(--space-2xl);">
+        <div class="reveal">
+          <span class="eyebrow">Built to solve real problems</span>
+          <h2>Technology that keeps working when networks don't.</h2>
+        </div>
+        <div class="reveal">
+          <p class="lead">TriPoint Innovations began with a simple belief: important technology should continue working even when traditional networks do not.</p>
+          <p>Founded in 2025 by Oklahoma State University engineering students Myles Lozano and Reese Huhnke, TriPoint develops practical products at the intersection of hardware, software, communication, and personal safety — built through hands-on engineering, field testing, and direct feedback from the people who'll actually use them.</p>
+          <a class="btn btn--secondary" href="/about.html">Read our story →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hunter Radar feature -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="grid grid--2" style="align-items:center; gap: var(--space-2xl);">
+        <div class="reveal">
+          <span class="eyebrow">Introducing Hunter Radar</span>
+          <h2>Location awareness where cellular service ends.</h2>
+          <p>Hunter Radar is an off-grid outdoor safety and communication system for hunters, landowners, hikers, guides, and outdoor groups. It combines portable hardware with a digital map interface so group members stay aware of one another across large or remote properties — without depending entirely on cell towers.</p>
+          <ul class="feature-list" style="margin: var(--space-md) 0 var(--space-lg);">
+            <li>Group location sharing</li>
+            <li>Offline communication</li>
+            <li>Last-known location tracking</li>
+            <li>Short status updates</li>
+            <li>Emergency alerts</li>
+            <li>Property boundaries</li>
+          </ul>
+          <a class="btn btn--primary" href="/hunter-radar.html">Learn About Hunter Radar</a>
+        </div>
+        <div class="reveal" aria-hidden="true">
+          <svg viewBox="0 0 400 300" style="width:100%; height:auto;">
+            <rect x="0" y="0" width="400" height="300" rx="10" fill="#2E2E2E"/>
+            <path class="topo-line" stroke="#F5F3EE" d="M0,80 Q100,40 200,70 T400,50" opacity="0.14"/>
+            <path class="topo-line" stroke="#F5F3EE" d="M0,150 Q110,110 220,145 T400,120" opacity="0.14"/>
+            <path class="topo-line" stroke="#F5F3EE" d="M0,220 Q120,180 240,215 T400,195" opacity="0.14"/>
+            <g>
+              <line x1="90" y1="200" x2="220" y2="90" stroke="#F26A21" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+              <line x1="220" y1="90" x2="320" y2="180" stroke="#F26A21" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+              <circle cx="90" cy="200" r="6" fill="#F26A21"/>
+              <circle cx="220" cy="90" r="6" fill="#F5F3EE"/>
+              <circle cx="320" cy="180" r="6" fill="#F26A21"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="max-width:640px; margin-bottom: var(--space-xl);">
+        <span class="eyebrow">How Hunter Radar works</span>
+        <h2>A dedicated network, not a dependency on service.</h2>
+      </div>
+      <div class="flow reveal">
+        <div class="flow__step">
+          <span class="flow__index">01 — Connect</span>
+          <h3>Connect</h3>
+          <p>Each user carries a Hunter Radar device connected to the local interface.</p>
+        </div>
+        <div class="flow__step">
+          <span class="flow__index">02 — Communicate</span>
+          <h3>Communicate</h3>
+          <p>Hunter Radar devices exchange compact information through long-range radio communication.</p>
+        </div>
+        <div class="flow__step">
+          <span class="flow__index">03 — View</span>
+          <h3>View</h3>
+          <p>Received locations, statuses, and alerts are displayed through the Hunter Radar map interface.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress & stats -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="reveal" style="max-width:640px; margin-bottom: var(--space-xl);">
+        <span class="eyebrow">Built through action</span>
+        <h2>Momentum, measured honestly.</h2>
+        <p>TriPoint Innovations has grown through engineering development, entrepreneurial programs, technical competitions, mentorship, and direct product testing.</p>
+      </div>
+      <div class="grid grid--4 reveal">
+        <div class="stat"><span class="stat__value" data-count-to="2025">2025</span><span class="stat__label">Company founded</span></div>
+        <div class="stat"><span class="stat__value" data-count-to="2">2 Founders</span><span class="stat__label">Engineering &amp; product development</span></div>
+        <div class="stat"><span class="stat__value">3rd Place</span><span class="stat__label">Hackathon finish</span></div>
+        <div class="stat"><span class="stat__value" data-count-to="2">2 Programs</span><span class="stat__label">Accelerator &amp; startup development</span></div>
+      </div>
+      <div style="margin-top: var(--space-xl);">
+        <a class="btn btn--secondary" href="/progress.html">See our full progress →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accelerator logos -->
+  <section class="section--tight">
+    <div class="container">
+      <p class="eyebrow" style="justify-content:center; display:flex;">Supported by Oklahoma's innovation ecosystem</p>
+      <div class="logo-strip">
+        <span class="logo-strip__item">Oklahoma Farm Bureau</span>
+        <span class="logo-strip__item">Activate Accelerator</span>
+        <span class="logo-strip__item">Oklahoma State University</span>
+        <span class="logo-strip__item">Riata Center for Innovation &amp; Entrepreneurship</span>
+        <span class="logo-strip__item">Riata Startup Experience</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder preview -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="max-width:640px; margin-bottom: var(--space-lg);">
+        <span class="eyebrow">Meet the founders</span>
+        <h2>Two engineers, one working system.</h2>
+        <p>TriPoint Innovations is led by two Oklahoma State University engineering students combining technical development, business strategy, and hands-on product execution.</p>
+      </div>
+      <div class="grid grid--2 reveal">
+        <div class="card">
+          <span class="founder__role">Co-Founder</span>
+          <h3>Myles Lozano</h3>
+          <p>Mechanical and aerospace engineering student with experience in engineering design, product development, aerospace systems, prototyping, and business development.</p>
+        </div>
+        <div class="card">
+          <span class="founder__role">Co-Founder</span>
+          <h3>Reese Huhnke</h3>
+          <p>Engineering student focused on technical development, product design, software, prototyping, and problem solving — translating ideas into working systems.</p>
+        </div>
+      </div>
+      <div style="margin-top: var(--space-lg);">
+        <a class="btn btn--secondary" href="/team.html">Meet the full team →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="section section--dark">
+    <div class="container" style="text-align:center;">
+      <div class="reveal" style="max-width:640px; margin: 0 auto;">
+        <span class="eyebrow" style="justify-content:center; display:flex;">Let's build safer connections</span>
+        <h2>Interested in testing, partnering, or investing?</h2>
+        <p>We're connecting with potential beta testers, outdoor organizations, landowners, technical partners, mentors, and investors working to improve safety in remote environments.</p>
+        <a class="btn btn--primary" href="/contact.html">Contact TriPoint</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="nav__logo" href="/">
+          <span class="logo-chip"><img class="nav__logo-mark" src="/images/logo-mark-256.png" alt="TriPoint Innovations mark" width="22" height="20"></span>
+          TriPoint Innovations
+        </a>
+        <p>TriPoint Innovations develops practical safety and connectivity technology for the places traditional networks cannot reach.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Site</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/hunter-radar.html">Hunter Radar</a></li>
+            <li><a href="/progress.html">Progress</a></li>
+            <li><a href="/team.html">Team</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="/contact.html">Contact TriPoint</a></li>
+            <li><a href="/beta/">Join the Beta</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 TriPoint Innovations LLC. All rights reserved.</span>
+      <span><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms of Use</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter Radar Beta — TriPoint Innovations</title>
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" href="/images/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<meta name="description" content="Hunter Radar beta test interface — connect over Bluetooth or USB, view live and simulated location packets on a map, and inspect diagnostics.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/beta/css/beta.css">
+</head>
+<body class="beta-body">
+
+<header class="beta-header">
+  <a class="nav__logo" href="/" style="color:var(--text-on-dark);">
+    <span class="logo-chip"><img class="nav__logo-mark" src="/images/logo-mark-256.png" alt="TriPoint Innovations mark" width="22" height="20"></span>
+    Hunter Radar <span class="beta-tag">BETA</span>
+  </a>
+  <div class="beta-header__status">
+    <span class="conn-dot" id="conn-dot" data-state="disconnected"></span>
+    <span id="conn-label">Disconnected</span>
+  </div>
+  <a class="btn btn--secondary btn--sm" href="/hunter-radar.html">← Back to site</a>
+</header>
+
+<main class="beta-layout">
+
+  <!-- Left: connection + device list -->
+  <aside class="panel panel--left">
+    <section class="panel-block">
+      <h2 class="panel-title">Device Connection</h2>
+      <div class="btn-row">
+        <button class="btn btn--primary btn--sm" id="btn-connect-ble">Connect via Bluetooth</button>
+        <button class="btn btn--secondary btn--sm" id="btn-connect-serial">Connect via USB Serial</button>
+      </div>
+      <button class="btn btn--secondary btn--sm" id="btn-disconnect" style="margin-top:0.5rem; display:none;">Disconnect</button>
+      <dl class="status-list">
+        <div><dt>State</dt><dd id="status-state">Disconnected</dd></div>
+        <div><dt>Transport</dt><dd id="status-transport">—</dd></div>
+        <div><dt>Device</dt><dd id="status-device">—</dd></div>
+        <div><dt>Last packet</dt><dd id="status-last-packet">—</dd></div>
+        <div><dt>Packets received</dt><dd id="status-packet-count">0</dd></div>
+      </dl>
+      <p class="hint">Web Bluetooth works in Chrome/Edge on desktop and Android — not in Safari or any iOS browser. Web Serial requires Chrome/Edge on desktop.</p>
+    </section>
+
+    <section class="panel-block">
+      <h2 class="panel-title">Test Controls</h2>
+      <p class="hint">No hardware connected yet? Generate simulated packets to exercise the full pipeline.</p>
+      <div class="btn-row">
+        <button class="btn btn--secondary btn--sm" id="btn-inject-one">Inject test packet</button>
+        <button class="btn btn--secondary btn--sm" id="btn-sim-toggle">Start simulation</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn--secondary btn--sm" id="btn-inject-sos">Trigger test SOS</button>
+        <button class="btn btn--secondary btn--sm" id="btn-clear-devices">Clear devices</button>
+      </div>
+    </section>
+
+    <section class="panel-block panel-block--grow">
+      <h2 class="panel-title">Tracked Devices</h2>
+      <div id="device-list" class="device-list">
+        <p class="hint">No devices yet. Connect hardware or inject a test packet.</p>
+      </div>
+    </section>
+  </aside>
+
+  <!-- Center: map -->
+  <section class="panel panel--map">
+    <div id="map" class="map-canvas" role="application" aria-label="Hunter Radar live map"></div>
+    <div class="map-legend">
+      <span><i class="dot dot--current"></i>Current</span>
+      <span><i class="dot dot--delayed"></i>Delayed</span>
+      <span><i class="dot dot--stale"></i>Stale</span>
+      <span><i class="dot dot--disconnected"></i>Disconnected</span>
+      <span><i class="dot dot--emergency"></i>Emergency</span>
+    </div>
+  </section>
+
+  <!-- Right: messages + diagnostics -->
+  <aside class="panel panel--right">
+    <section class="panel-block">
+      <h2 class="panel-title">Messages</h2>
+      <div id="message-log" class="message-log"></div>
+      <div class="btn-row btn-row--wrap" id="quick-messages">
+        <button class="chip" data-msg="Moving north">Moving north</button>
+        <button class="chip" data-msg="At truck">At truck</button>
+        <button class="chip" data-msg="Deer headed east">Deer headed east</button>
+        <button class="chip" data-msg="Leaving stand">Leaving stand</button>
+      </div>
+      <form id="message-form" class="message-form">
+        <input type="text" id="message-input" placeholder="Custom message..." maxlength="120" autocomplete="off">
+        <button type="submit" class="btn btn--primary btn--sm">Send</button>
+      </form>
+    </section>
+
+    <section class="panel-block panel-block--grow">
+      <div class="panel-title-row">
+        <h2 class="panel-title">Diagnostic Console</h2>
+        <div class="btn-row">
+          <button class="btn-icon" id="btn-clear-log" title="Clear log">Clear</button>
+          <button class="btn-icon" id="btn-export-log" title="Export session log">Export</button>
+        </div>
+      </div>
+      <div id="diagnostic-console" class="diagnostic-console" role="log" aria-live="polite"></div>
+    </section>
+  </aside>
+
+</main>
+
+<!-- Device / marker detail modal -->
+<div id="device-detail" class="device-detail" hidden>
+  <div class="device-detail__card">
+    <button class="device-detail__close" id="device-detail-close" aria-label="Close">×</button>
+    <div id="device-detail-content"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<script src="/beta/js/packetParser.js"></script>
+<script src="/beta/js/deviceStore.js"></script>
+<script src="/beta/js/diagnosticLogger.js"></script>
+<script src="/beta/js/mapLayer.js"></script>
+<script src="/beta/js/bluetoothService.js"></script>
+<script src="/beta/js/serialService.js"></script>
+<script src="/beta/js/simulateService.js"></script>
+<script src="/beta/js/app.js"></script>
+</body>
+</html>

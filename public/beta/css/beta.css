@@ -1,0 +1,283 @@
+/* ==========================================================================
+   Hunter Radar Beta — technical console styling.
+   Deliberately darker and denser than the marketing site: this is an
+   engineering tool, not a landing page.
+   ========================================================================== */
+
+.beta-body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #17181A;
+  color: #E7E7E4;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+}
+
+.beta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 0.7rem 1.2rem;
+  background: #1F2022;
+  border-bottom: 1px solid rgba(245,243,238,0.1);
+  flex-shrink: 0;
+}
+.beta-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  vertical-align: middle;
+}
+.beta-header__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #B9B6AE;
+}
+.conn-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #686868;
+  display: inline-block;
+}
+.conn-dot[data-state="connected"] { background: #3EBD7A; box-shadow: 0 0 8px #3EBD7A; }
+.conn-dot[data-state="connecting"] { background: #F2C21E; animation: pulse-dot 1s infinite; }
+.conn-dot[data-state="error"] { background: #E14B3B; }
+
+.btn--sm { padding: 0.55em 1em; font-size: 0.85rem; }
+
+.beta-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr 340px;
+  min-height: 0;
+}
+@media (max-width: 1100px) {
+  .beta-layout { grid-template-columns: 1fr; overflow-y: auto; }
+  .beta-body { overflow: auto; height: auto; min-height: 100vh; }
+}
+
+.panel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.panel--left, .panel--right {
+  background: #1B1C1E;
+  overflow-y: auto;
+}
+.panel--left { border-right: 1px solid rgba(245,243,238,0.08); }
+.panel--right { border-left: 1px solid rgba(245,243,238,0.08); }
+
+.panel-block {
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid rgba(245,243,238,0.07);
+}
+.panel-block--grow { flex: 1; display: flex; flex-direction: column; min-height: 240px; }
+
+.panel-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8B887F;
+  margin: 0 0 0.7rem;
+  font-weight: 500;
+}
+.panel-title-row { display: flex; align-items: center; justify-content: space-between; }
+.panel-title-row .panel-title { margin-bottom: 0.7rem; }
+
+.btn-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.btn-row--wrap { margin-top: 0.6rem; }
+
+.status-list { margin: 0.8rem 0 0; font-size: 0.85rem; }
+.status-list > div { display: flex; justify-content: space-between; padding: 0.28rem 0; border-bottom: 1px dashed rgba(245,243,238,0.08); }
+.status-list dt { color: #8B887F; font-family: var(--font-mono); font-size: 0.76rem; }
+.status-list dd { margin: 0; font-family: var(--font-mono); }
+
+.hint { font-size: 0.8rem; color: #7A776E; margin: 0.5rem 0 0; }
+
+/* Device list */
+.device-list { flex: 1; overflow-y: auto; }
+.device-card {
+  border: 1px solid rgba(245,243,238,0.1);
+  border-radius: 6px;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+  transition: border-color 150ms;
+}
+.device-card:hover { border-color: var(--accent); }
+.device-card__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem; }
+.device-card__id { font-family: var(--font-mono); font-weight: 600; font-size: 0.9rem; }
+.device-card__state {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  padding: 0.15em 0.5em;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+.device-card__meta { font-size: 0.78rem; color: #9A968C; font-family: var(--font-mono); }
+
+.state-current { background: rgba(62,189,122,0.15); color: #3EBD7A; }
+.state-delayed { background: rgba(242,194,30,0.15); color: #F2C21E; }
+.state-stale { background: rgba(139,136,127,0.2); color: #9A968C; }
+.state-disconnected { background: rgba(139,136,127,0.12); color: #6B685F; }
+.state-emergency { background: rgba(225,75,59,0.2); color: #E14B3B; }
+
+/* Map */
+.panel--map { position: relative; background: #101112; }
+.map-canvas { position: absolute; inset: 0; }
+.map-legend {
+  position: absolute;
+  bottom: 1rem; left: 1rem;
+  background: rgba(23,24,26,0.88);
+  border: 1px solid rgba(245,243,238,0.12);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  z-index: 5;
+  flex-wrap: wrap;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 0.4em; }
+.dot--current { background: #3EBD7A; }
+.dot--delayed { background: #F2C21E; }
+.dot--stale { background: #9A968C; }
+.dot--disconnected { background: #6B685F; }
+.dot--emergency { background: #E14B3B; }
+
+/* Messages */
+.message-log {
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.message-item { padding: 0.4rem 0.55rem; background: rgba(245,243,238,0.04); border-radius: 5px; }
+.message-item time { color: #7A776E; font-family: var(--font-mono); font-size: 0.7rem; display: block; }
+
+.chip {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  padding: 0.35em 0.7em;
+  border-radius: 20px;
+  border: 1px solid rgba(245,243,238,0.16);
+  background: transparent;
+  color: #C7C4BC;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+.message-form { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
+.message-form input {
+  flex: 1;
+  background: #101112;
+  border: 1px solid rgba(245,243,238,0.14);
+  border-radius: 5px;
+  padding: 0.5em 0.7em;
+  color: #E7E7E4;
+  font-size: 0.85rem;
+}
+.message-form input:focus { outline: none; border-color: var(--accent); }
+
+/* Diagnostic console */
+.diagnostic-console {
+  flex: 1;
+  background: #101112;
+  border: 1px solid rgba(245,243,238,0.08);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  overflow-y: auto;
+  min-height: 160px;
+}
+.log-line { white-space: pre-wrap; word-break: break-word; }
+.log-line--error { color: #E14B3B; }
+.log-line--warn { color: #F2C21E; }
+.log-line--info { color: #8FB8FF; }
+.log-line--ok { color: #3EBD7A; }
+.log-line time { color: #5D5A52; margin-right: 0.5em; }
+
+.btn-icon {
+  background: transparent;
+  border: 1px solid rgba(245,243,238,0.14);
+  color: #C7C4BC;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-icon:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Marker */
+.hr-marker {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid #101112;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.hr-marker--current { background: #3EBD7A; }
+.hr-marker--delayed { background: #F2C21E; }
+.hr-marker--stale { background: #9A968C; }
+.hr-marker--disconnected { background: #6B685F; opacity: 0.6; }
+.hr-marker--emergency {
+  background: #E14B3B;
+  box-shadow: 0 0 0 0 rgba(225,75,59,0.6);
+  animation: emergency-pulse 1.4s infinite;
+}
+@keyframes emergency-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(225,75,59,0.6); }
+  70% { box-shadow: 0 0 0 14px rgba(225,75,59,0); }
+  100% { box-shadow: 0 0 0 0 rgba(225,75,59,0); }
+}
+
+/* Device detail modal */
+.device-detail {
+  position: fixed; inset: 0;
+  background: rgba(16,17,18,0.7);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+}
+.device-detail__card {
+  background: #1B1C1E;
+  border: 1px solid rgba(245,243,238,0.12);
+  border-radius: 8px;
+  padding: 1.4rem;
+  min-width: 280px;
+  max-width: 90vw;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.device-detail__close {
+  position: absolute; top: 0.6rem; right: 0.8rem;
+  background: none; border: none; color: #C7C4BC;
+  font-size: 1.3rem; cursor: pointer; line-height: 1;
+}
+.device-detail__card dl { margin: 0; }
+.device-detail__card dt { color: #8B887F; margin-top: 0.5em; }
+.device-detail__card dd { margin: 0 0 0.2em; color: #E7E7E4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .conn-dot, .hr-marker--emergency { animation: none !important; }
+}
