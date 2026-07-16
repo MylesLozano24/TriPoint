@@ -258,6 +258,9 @@
   display: flex; align-items: center; justify-content: center;
   z-index: 200;
 }
+.device-detail[hidden] {
+  display: none;
+}
 .device-detail__card {
   background: #1B1C1E;
   border: 1px solid rgba(245,243,238,0.12);
