@@ -61,11 +61,33 @@ This runs the Worker locally (including the static asset serving and the
 npx wrangler deploy
 ```
 
-### Contact form storage
+### Contact form email (Resend)
 
-`/api/contact` currently writes submissions to a Cloudflare KV namespace
-if one is bound as `CONTACT_SUBMISSIONS` (see comments in
-`worker/index.js`). To enable it:
+`/api/contact` sends a notification email to `tripointinnovationsllc@gmail.com`
+via [Resend](https://resend.com) whenever a `RESEND_API_KEY` secret is set on
+the Worker. Without that secret, submissions are validated but no email goes out.
+
+**Setup:**
+
+1. Create a free Resend account at resend.com (free tier: 3,000 emails/month, 100/day — plenty for a contact form).
+2. In the Resend dashboard, go to **API Keys** → **Create API Key**. Copy it — Resend only shows it once.
+3. Add it to the Worker as a **secret** (never commit this to the repo or paste it into a code file):
+   ```bash
+   npx wrangler secret put RESEND_API_KEY
+   ```
+   This prompts you to paste the key directly into your terminal — it gets encrypted and stored by Cloudflare, not written to any file in this repo.
+
+   Alternatively, via the dashboard: Worker → **Settings** → **Variables and Secrets** → **Add** → set type to **Secret** (encrypted), name `RESEND_API_KEY`.
+4. That's it — new submissions will start emailing `tripointinnovationsllc@gmail.com`, with the sender's email set as the reply-to so you can just hit "Reply" in Gmail.
+
+**Sender address:** By default this sends from Resend's shared `onboarding@resend.dev` address, which works immediately with no setup — fine to launch with. Once you want mail to come from `@tripoint-innovations.com` instead:
+
+1. In Resend, go to **Domains** → **Add Domain** → enter `tripoint-innovations.com`
+2. Add the DNS records Resend gives you (in Cloudflare's **Records** page, since the domain is already there)
+3. Once verified, set an optional `CONTACT_FROM_EMAIL` variable on the Worker (e.g. `TriPoint Innovations <contact@tripoint-innovations.com>`) — no code changes needed, `worker/index.js` already checks for this variable.
+
+**Optional backup copy:** submissions can also be written to a Cloudflare KV
+namespace as a backup (in case an email send ever fails):
 
 ```bash
 npx wrangler kv namespace create CONTACT_SUBMISSIONS
@@ -78,10 +100,6 @@ Then add the returned binding to `wrangler.toml`:
 binding = "CONTACT_SUBMISSIONS"
 id = "your-namespace-id-here"
 ```
-
-Without a bound KV namespace, submissions are still validated but not
-persisted — wire up an email provider (e.g. Resend) or KV before relying
-on the form for real inquiries.
 
 ## Maps
 

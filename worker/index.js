@@ -41,15 +41,6 @@ async function handleContactForm(request, env) {
       return jsonResponse({ ok: false, error: "Please enter a valid email address." }, 400);
     }
 
-    // NOTE: This Worker does not currently send email itself. Wire this up to
-    // whichever service you prefer:
-    //   - Resend (resend.com) has a generous free tier and a simple fetch-based API
-    //   - Cloudflare Email Workers (send via a verified address)
-    //   - Or forward to a Google Sheet / Airtable via their REST API
-    // For now, submissions are stored in KV so nothing is lost while you wire up
-    // notifications. Create a KV namespace named CONTACT_SUBMISSIONS and bind it
-    // in wrangler.toml, or swap this out for your email provider of choice.
-
     const submission = {
       name,
       email,
@@ -59,15 +50,84 @@ async function handleContactForm(request, env) {
       receivedAt: new Date().toISOString(),
     };
 
+    // Best-effort backup copy in KV, if a namespace is bound — so a submission
+    // is never fully lost even if the email send below fails for some reason.
     if (env.CONTACT_SUBMISSIONS) {
       const key = `contact:${Date.now()}:${crypto.randomUUID()}`;
       await env.CONTACT_SUBMISSIONS.put(key, JSON.stringify(submission));
+    }
+
+    // Send the actual notification email via Resend (resend.com).
+    // Requires a RESEND_API_KEY secret to be set on this Worker — see
+    // README.md for how to set that up. Until it's set, submissions are
+    // still validated and (if KV is bound) stored, but no email goes out.
+    if (env.RESEND_API_KEY) {
+      const emailSent = await sendContactEmail(submission, env);
+      if (!emailSent) {
+        // Don't fail the whole request just because the email send failed —
+        // the submission may still be in KV. Log for debugging via
+        // `wrangler tail` and let the user know it worked from their side.
+        console.error("Resend send failed for submission:", submission.email);
+      }
     }
 
     return jsonResponse({ ok: true });
   } catch (err) {
     return jsonResponse({ ok: false, error: "Something went wrong. Please try again." }, 500);
   }
+}
+
+async function sendContactEmail(submission, env) {
+  const toAddress = env.CONTACT_NOTIFY_EMAIL || "tripointinnovationsllc@gmail.com";
+
+  // Uses Resend's default onboarding@resend.dev sender, which works without
+  // verifying a domain first — fine to launch with. Once tripoint-innovations.com
+  // is verified in Resend, switch the "from" below to something like
+  // "TriPoint Innovations <contact@tripoint-innovations.com>" for a more
+  // professional sender address (see README.md).
+  const fromAddress = env.CONTACT_FROM_EMAIL || "TriPoint Website <onboarding@resend.dev>";
+
+  const html = `
+    <h2>New contact form submission</h2>
+    <p><strong>Name:</strong> ${escapeHtml(submission.name)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(submission.email)}</p>
+    <p><strong>Organization:</strong> ${escapeHtml(submission.organization || "—")}</p>
+    <p><strong>Area of interest:</strong> ${escapeHtml(submission.interest || "—")}</p>
+    <p><strong>Message:</strong></p>
+    <p>${escapeHtml(submission.message).replace(/\n/g, "<br>")}</p>
+    <hr>
+    <p style="color:#888; font-size:12px;">Received ${submission.receivedAt}</p>
+  `;
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromAddress,
+        to: [toAddress],
+        reply_to: submission.email,
+        subject: `TriPoint contact form: ${submission.name}${submission.interest ? ` — ${submission.interest}` : ""}`,
+        html,
+      }),
+    });
+    return res.ok;
+  } catch (err) {
+    console.error("Resend request threw:", err);
+    return false;
+  }
+}
+
+function escapeHtml(str) {
+  return (str || "")
+    .toString()
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function jsonResponse(body, status = 200) {
