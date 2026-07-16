@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Hunter Radar Pitch Deck — presentation viewer
+   Dark theater frame around the original slide renders. The slide
+   content itself is untouched imagery — this CSS only styles the
+   chrome around it (header, nav arrows, counter, filmstrip).
+   ========================================================================== */
+
+.pitch-body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #0B0B0C;
+  color: #E7E7E4;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header ------------------------------------------------------------- */
+
+.pitch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 0.7rem 1.2rem;
+  background: #17181A;
+  border-bottom: 1px solid rgba(245,243,238,0.08);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.pitch-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-on-dark);
+}
+.pitch-header__brand img { display: block; }
+
+.pitch-header__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.2;
+}
+.pitch-header__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+.pitch-header__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.pitch-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pitch-btn {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #17181A;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  transition: opacity 150ms;
+}
+.pitch-btn:hover { opacity: 0.88; }
+.pitch-btn--ghost {
+  background: transparent;
+  color: #C7C4BC;
+  border-color: rgba(245,243,238,0.18);
+}
+.pitch-btn--ghost:hover { color: var(--accent); border-color: var(--accent); opacity: 1; }
+
+/* Stage --------------------------------------------------------------- */
+
+.pitch-stage {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 4.5rem;
+}
+
+.pitch-slide-frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pitch-slide-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  background: #fff; /* letterboxing behind the deck's own background if aspect varies */
+  user-select: none;
+}
+
+.pitch-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(23,24,26,0.85);
+  border: 1px solid rgba(245,243,238,0.14);
+  color: #E7E7E4;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms, border-color 150ms;
+  z-index: 5;
+}
+.pitch-nav:hover { border-color: var(--accent); color: var(--accent); }
+.pitch-nav:disabled { opacity: 0.3; cursor: default; }
+.pitch-nav:disabled:hover { border-color: rgba(245,243,238,0.14); color: #E7E7E4; }
+.pitch-nav--prev { left: 1rem; }
+.pitch-nav--next { right: 1rem; }
+
+.pitch-counter {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background: rgba(23,24,26,0.85);
+  border: 1px solid rgba(245,243,238,0.14);
+  padding: 0.35em 0.9em;
+  border-radius: 20px;
+  color: #C7C4BC;
+}
+
+/* Filmstrip ------------------------------------------------------------- */
+
+.pitch-filmstrip {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  overflow-x: auto;
+  background: #101112;
+  border-top: 1px solid rgba(245,243,238,0.08);
+}
+
+.pitch-filmstrip img {
+  height: 54px;
+  width: auto;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.55;
+  flex-shrink: 0;
+  transition: opacity 150ms, border-color 150ms;
+}
+.pitch-filmstrip img:hover { opacity: 0.85; }
+.pitch-filmstrip img.is-active {
+  opacity: 1;
+  border-color: var(--accent);
+}
+
+/* Responsive ------------------------------------------------------------ */
+
+@media (max-width: 720px) {
+  .pitch-stage { padding: 0.8rem 3rem; }
+  .pitch-nav { width: 38px; height: 38px; font-size: 1.3rem; }
+  .pitch-nav--prev { left: 0.4rem; }
+  .pitch-nav--next { right: 0.4rem; }
+  .pitch-header { justify-content: center; text-align: center; }
+  .pitch-header__brand span { display: none; }
+  .pitch-filmstrip img { height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

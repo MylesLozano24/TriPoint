@@ -114,9 +114,24 @@ async function sendContactEmail(submission, env) {
         html,
       }),
     });
-    return res.ok;
+
+    if (!res.ok) {
+      // Surface Resend's actual error instead of discarding it — this is
+      // the detail that shows up in `wrangler tail` / Cloudflare's live
+      // Logs view, so check there after a failed test send.
+      let details = "";
+      try {
+        details = JSON.stringify(await res.json());
+      } catch {
+        details = await res.text().catch(() => "(no response body)");
+      }
+      console.error(`Resend API error (status ${res.status}):`, details);
+      return false;
+    }
+
+    return true;
   } catch (err) {
-    console.error("Resend request threw:", err);
+    console.error("Resend request threw:", err.message || err);
     return false;
   }
 }

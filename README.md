@@ -103,10 +103,24 @@ id = "your-namespace-id-here"
 
 ## Maps
 
-The beta app uses **MapLibre GL JS** (open source, no API key) with
-CARTO's free basemap tiles — fine for beta testing, not meant for heavy
-production traffic. See the note at the bottom of `mapLayer.js` for
-swapping to a committed free tier (MapTiler, Stadia Maps) later.
+The beta app uses **MapLibre GL JS** (open source, no key needed for the
+library itself) paired with **MapTiler** as the tile provider — free
+tier: 100,000 map loads/month, no credit card required.
+
+**Setup:**
+
+1. Create a free account at [cloud.maptiler.com](https://cloud.maptiler.com)
+2. Go to **Account → Keys** — a default key is created automatically, or click **Create Key**
+3. Copy the key
+4. Open `public/beta/js/mapLayer.js` and paste it into the `MAPTILER_API_KEY` constant near the top of the file:
+   ```js
+   const MAPTILER_API_KEY = "your-key-here";
+   ```
+5. **Restrict the key to your domain** (Account → Keys → your key → **Allowed URLs**) — add `https://tripoint-innovations.com/*`. This is the important step: unlike the Resend key, this one lives in public JavaScript, so domain restriction (not secrecy) is what keeps it from being used elsewhere.
+
+**Important — this key is different from `RESEND_API_KEY`:** it does *not* go into Cloudflare's Variables and Secrets. It's meant to be visible in the browser, so it's committed directly in `mapLayer.js` like any other config value. Once restricted to your domain in step 5, that's the correct and complete security model for this kind of key.
+
+If the key is missing or the styled map ever fails to load (wrong key, over quota), the map automatically falls back to a free basemap that needs no key at all — so it never just goes blank, even mid-troubleshooting.
 
 ## Beta app loads independently from the main site
 

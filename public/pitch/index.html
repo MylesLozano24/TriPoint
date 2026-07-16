@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitch Deck — TriPoint Innovations</title>
+<meta name="description" content="TriPoint Innovations' Hunter Radar pitch deck.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/images/favicon.ico" sizes="any">
+<link rel="icon" href="/images/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/pitch/css/pitch.css">
+</head>
+<body class="pitch-body">
+
+<header class="pitch-header">
+  <a class="pitch-header__brand" href="/">
+    <img src="/images/logo-mark-256.png" alt="TriPoint Innovations" width="24" height="22">
+    <span>TriPoint Innovations</span>
+  </a>
+  <div class="pitch-header__title">
+    <span class="pitch-header__label">Pitch Deck</span>
+    <span class="pitch-header__name">Hunter Radar</span>
+  </div>
+  <div class="pitch-header__actions">
+    <a class="pitch-btn" href="/pitch/hunter-radar-pitch-deck.pdf" download>Download PDF</a>
+    <button class="pitch-btn" id="btn-fullscreen" aria-label="Toggle fullscreen">Fullscreen</button>
+    <a class="pitch-btn pitch-btn--ghost" href="/">Back to site</a>
+  </div>
+</header>
+
+<main class="pitch-stage" id="pitch-stage">
+  <button class="pitch-nav pitch-nav--prev" id="btn-prev" aria-label="Previous slide">‹</button>
+
+  <div class="pitch-slide-frame">
+    <img id="pitch-slide-image" src="/pitch/images/slide-1.jpg" alt="Slide 1" draggable="false">
+  </div>
+
+  <button class="pitch-nav pitch-nav--next" id="btn-next" aria-label="Next slide">›</button>
+
+  <div class="pitch-counter">
+    <span id="pitch-counter-current">1</span> / <span id="pitch-counter-total">15</span>
+  </div>
+</main>
+
+<nav class="pitch-filmstrip" id="pitch-filmstrip" aria-label="Slide thumbnails"></nav>
+
+<script src="/pitch/js/pitch.js"></script>
+</body>
+</html>
